@@ -17,6 +17,4 @@
 * Throttled configuration
 * How the relationship between the proxypass and the nginx of the apis that receive requests works.
 
-## What is NGINX?
-
-* 
+ 

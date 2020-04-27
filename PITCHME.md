@@ -1,10 +1,12 @@
-# Let's Get **Started**
+# Nginx **Questions**
 
 ---
 
-### Add Some Slide Candy
+## What is NGINX
 
-![IMAGE](assets/img/presentation.png)
+nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server, originally written by Igor Sysoev. 
+
+---
 
 ---?color=linear-gradient(180deg, white 75%, black 25%)
 @title[Customize Slide Layout]
