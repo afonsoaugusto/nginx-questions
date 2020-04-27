@@ -33,7 +33,7 @@ nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server, and a
 ---
 @snap[north-west span-50 text-center]
 
-### Proxy vs. Reverse-Proxy
+#### Proxy vs. Reverse-Proxy
 
 @snapend
 
@@ -51,7 +51,7 @@ nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server, and a
 ---
 @snap[north-west span-50 text-center]
 
-### Proxy vs. Reverse-Proxy
+#### Proxy vs. Reverse-Proxy
 
 @snapend
 
