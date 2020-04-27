@@ -37,7 +37,7 @@ nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server, and a
 
 @snapend
 
-@snap[span-50 text-09]
+@snap[span-50 text-07]
 @ul
 - Proxy:
     - Sits between our clients and the internet
