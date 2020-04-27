@@ -17,4 +17,8 @@
 * Throttled configuration
 * How the relationship between the proxypass and the nginx of the apis that receive requests works.
 
- 
+## Nginx Questions
+
+### What is NGINX
+
+nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server, originally written by [Igor Sysoev](http://sysoev.ru/en/).

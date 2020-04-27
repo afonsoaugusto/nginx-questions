@@ -19,7 +19,7 @@ nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server, and a
 
 @snapend
 
-@snap[span-50 text-09]
+@snap[span-50 text-07]
 @ul
 - High performance web server:
     - Used by over 50% of the top 1,000 sites
@@ -70,6 +70,37 @@ ADD CONSTRAINT forum_id
 FOREIGN KEY ("forum_id")
 REFERENCES "forum" ("id");
 ```
+
+---
+
+@snap[north-west span-50 text-center]
+
+### What are locations?
+
+@snapend
+
+```nginx
+Syntax:	location [ = | ~ | ~* | ^~ ] uri { ... }
+location @name { ... }
+Default:	—
+Context:	server, location
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ---
 
