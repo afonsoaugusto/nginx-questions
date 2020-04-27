@@ -36,8 +36,8 @@ nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server, and a
 
 @snapend
 
-@snap[west span-55]
-@ul[list-spaced-bullets text-09]
+@snap[span-50 text-09]
+@ul
 - Proxy:
     - Sits between our clients and the internet
     - Intermediate layer often used within organizations to monitor web traffic
@@ -47,9 +47,14 @@ nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server, and a
 @ulend
 @snapend
 
-@snap[east span-45]
-![IMAGE](assets/img/proxy-reverse-proxy.png)
+---
+@snap[north-west span-50 text-center]
+
+### Proxy vs. Reverse-Proxy
+
 @snapend
+
+![IMAGE](assets/img/proxy-reverse-proxy.png)
 
 ---
 
