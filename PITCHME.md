@@ -20,17 +20,16 @@ nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server, and a
 
 @snapend
 
-@snap[west span-55]
-
-* High performance web server:
+@ul
+- High performance web server:
     - Used by over 50% of the top 1,000 sites
 
-* Reverse proxy :
+- Reverse proxy :
     - SSL/TLS Termination
     - Content caching and compression
-
-* Load Balancer
-@snapend
+    
+- Load Balancer
+@ulend
 
 ---?color=linear-gradient(180deg, white 75%, black 25%)
 @title[Customize Slide Layout]
