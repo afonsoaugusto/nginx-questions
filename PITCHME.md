@@ -33,6 +33,21 @@ nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server, and a
 
 ---
 
+```sql
+CREATE TABLE "topic" (
+    "id" serial NOT NULL PRIMARY KEY,
+    "forum_id" integer NOT NULL,
+    "subject" varchar(255) NOT NULL
+);
+ALTER TABLE "topic"
+ADD CONSTRAINT forum_id
+FOREIGN KEY ("forum_id")
+REFERENCES "forum" ("id");
+```
+
+
+---
+
 @snap[north-east span-100 text-pink text-06]
 Let your code do the talking!
 @snapend
