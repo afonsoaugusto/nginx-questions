@@ -1,14 +1,16 @@
 # Nginx **Questions**
 
+## **Questions**
+
 ---
 
-## What is NGINX
+### What is NGINX
 
 nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server, originally written by [Igor Sysoev](http://sysoev.ru/en/).
 
 ---
 
-### Use Cases
+#### Use Cases
 
 * High performance web server:
     - Used by over 50% of the top 1,000 sites
