@@ -20,6 +20,7 @@ nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server, and a
 
 @snapend
 
+@snap[text-06]
 @ul
 - High performance web server:
     - Used by over 50% of the top 1,000 sites
@@ -30,6 +31,7 @@ nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server, and a
     
 - Load Balancer
 @ulend
+@snapend
 
 ---
 
@@ -44,7 +46,6 @@ ADD CONSTRAINT forum_id
 FOREIGN KEY ("forum_id")
 REFERENCES "forum" ("id");
 ```
-
 
 ---
 
