@@ -1,0 +1,49 @@
+version: "3.7"
+
+services:
+
+  app:
+    image: nginx
+    volumes:
+      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./etc/nginx/app/:/etc/nginx/app/
+    ports:
+      - "80:80"    
+    networks:
+      - nginx_net
+
+  app_a:
+    image: nginx
+    volumes:
+      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./etc/nginx/app_a/:/etc/nginx/app/
+    ports:
+      - "81:80"    
+    networks:
+      - nginx_net
+
+  app_b:
+    image: nginx
+    volumes:
+      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./etc/nginx/app_b/:/etc/nginx/app/
+    ports:
+      - "82:80"    
+    networks:
+      - nginx_net
+
+  app_c:
+    image: nginx
+    volumes:
+      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./etc/nginx/app_c/:/etc/nginx/app/
+    ports:
+      - "83:80"    
+    networks:
+      - nginx_net      
+
+networks:
+  nginx_net:
+    # driver: bridge
+    # driver_opts:
+      # encrypted: "true"
