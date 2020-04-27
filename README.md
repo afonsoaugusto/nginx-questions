@@ -1,8 +1,4 @@
-# Nginx
-
-## Apresentation this repo
-
-* [https://gitpitch.com/afonsoaugusto/nginx-questions](https://gitpitch.com/afonsoaugusto/nginx-questions)
+# Nginx Questions
 
 ## Tutorial
 
@@ -17,8 +13,35 @@
 * Throttled configuration
 * How the relationship between the proxypass and the nginx of the apis that receive requests works.
 
-## Nginx Questions
-
 ### What is NGINX
 
 nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server, originally written by [Igor Sysoev](http://sysoev.ru/en/).
+
+### Use Cases
+
+* High performance web server:
+  * Used by over 50% of the top 1,000 sites
+* Reverse proxy :
+  * SSL/TLS Termination
+  * Content caching and compression
+* Load Balancer
+
+### Proxy vs. Reverse-Proxy
+
+* Proxy:
+  * Sits between our clients and the internet
+  * Intermediate layer often used within organizations to monitor web traffic
+* Reverse proxy :
+  * Sits between internet traffic and our servers
+  * Intermediate layer often used to load balance traffic & serve content from a cache
+
+![IMAGE](img/proxy-reverse-proxy.png)
+
+### What are locations
+
+```nginx
+Syntax:	location [ = | ~ | ~* | ^~ ] uri { ... }
+location @name { ... }
+Default:	—
+Context:	server, location
+```
