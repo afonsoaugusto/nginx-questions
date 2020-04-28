@@ -266,6 +266,10 @@ The structure de log is using log_format defined in nginx.conf.
                       '$status $body_bytes_sent "$http_referer" '
                       '"$http_user_agent" "$http_x_forwarded_for"';
 
+    log_format  debug  '$remote_addr - $request_id - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
     access_log  /var/log/nginx/access.log  main;
 
     map $status $log_condition_fail {
