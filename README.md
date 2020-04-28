@@ -21,7 +21,7 @@ chmod 777 presentation.html
 
 ```sh
 docker run --name nginx \
-           --rm -it -p 80:80 \
+           --rm -it -p 90:80 \
            -v $PWD/etc/nginx/nginx.conf:/etc/nginx/nginx.conf \
            -v $PWD/etc/nginx/conf.d:/etc/nginx/conf.d  \
            nginx
