@@ -40,7 +40,17 @@ services:
     ports:
       - "83:80"    
     networks:
-      - nginx_net      
+      - nginx_net
+
+  app_d:
+    image: nginx
+    volumes:
+      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./etc/nginx/app_d/:/etc/nginx/app/
+    ports:
+      - "84:80"    
+    networks:
+      - nginx_net
 
 networks:
   nginx_net:

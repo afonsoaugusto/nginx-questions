@@ -5,6 +5,7 @@
 * [Course: NGINX Web Server Deep Dive](https://linuxacademy.com/cp/modules/view/id/169)
 * [Nginx.org/docs](https://nginx.org/en/docs/)
 * [Nginx variables](https://nginx.org/en/docs/varindex.html)
+* [Throttled configuration](https://www.nginx.com/blog/rate-limiting-nginx/)
 
 ## Generate apresentation
 
@@ -35,6 +36,20 @@ docker exec -it nginx nginx -t
 * How the relationship between the proxypass and the nginx of the apis that receive requests works.
 * Relevant information about Proxypass.
 * The log files (/ var / log / nginx) of the routes and their structure.
+* Throttled configuration
+
+### Agenda
+
+* What is NGINX
+* Use Cases
+* Proxy vs. Reverse-Proxy
+* What are contexts
+* What are locations
+* Locations where are they configured
+* Include in Configuration files
+* Many nginx - apis
+* The log files (/ var / log / nginx)
+* Cache
 * Throttled configuration
 
 ### What is NGINX
@@ -174,7 +189,7 @@ Includes another file, or files matching the specified mask, into configuration.
 
 ![Many Nginx](img/nginx_many.png)
 
-### DEMO Many nginx - 1.1
+### Many nginx - 1.1 - DEMO
 
 ```sh
 cd many_nginx/
@@ -189,7 +204,7 @@ many_nginx_app_c_1   nginx -g daemon off;   Up      0.0.0.0:83->80/tcp
 many_nginx_app_1    nginx -g daemon off;   Up      0.0.0.0:80->80/tcp
 ```
 
-### DEMO Many nginx - 1.2
+### Many nginx - 1.2 - DEMO
 
 ```sh
 > $ curl localhost:80
@@ -211,7 +226,7 @@ app_a_1  | 172.22.0.5 - - [27/Apr/2020:20:39:52 +0000] "GET /1 HTTP/1.0" 200 27 
 app_1   | 172.22.0.1 - - [27/Apr/2020:20:39:52 +0000] "GET /1 HTTP/1.1" 200 27 "-" "curl/7.64.0" "-"
 ```
 
-### DEMO Many nginx - 1.3
+### Many nginx - 1.3 - DEMO
 
 ```nginx
 # app master a file app_a.conf
@@ -272,7 +287,7 @@ server {
 }
 ```
 
-### The log files (/ var / log / nginx) - Demo
+### The log files (/ var / log / nginx) - DEMO
 
 ```sh
 > $ curl  --resolve app_b.example.com:80:127.0.0.1 http://app_b.example.com
@@ -299,4 +314,84 @@ app_b_1  | 172.22.0.4 - - [27/Apr/2020:21:17:03 +0000] "GET /400 HTTP/1.0" 400 2
 app_1    | 172.22.0.1 - 5ecfa28281bd5a883a2f847349b53ca5 - - [27/Apr/2020:21:17:03 +0000] "GET /400 HTTP/1.1" 400 28 "-" "curl/7.64.0" "-"
 ```
 
+### Cache
+
+```nginx
+proxy_cache_path /dev/shm/app_c_cache levels=1:2 use_temp_path=on keys_zone=nearby_places_cache:1m inactive=1m max_size=1m;
+
+log_format  log_cache  '$remote_addr - cache_status:"$upstream_cache_status" - $remote_user [$time_local] "$request" '
+                    '$status $body_bytes_sent "$http_referer" '
+                    '"$http_user_agent" "$http_x_forwarded_for"';
+
+server {
+    server_name app_c.example.com;
+
+    access_log  /var/log/nginx/access.log  log_cache;
+
+    location / {
+        proxy_cache_key $scheme$host$request_uri;
+        proxy_cache nearby_places_cache;
+        proxy_cache_valid 200 301 302 304 5m;
+        proxy_pass http://up_app_c;
+        proxy_redirect off;
+    }
+}
+```
+
+### Cache - DEMO
+
+```sh
+> $ curl  --resolve app_c.example.com:80:127.0.0.1 http://app_c.example.com/
+{"app":"3", "status": "ok"}%
+
+> $ curl  --resolve app_c.example.com:80:127.0.0.1 http://app_c.example.com/
+{"app":"3", "status": "ok"}%
+```
+
+```sh
+app_c_1  | 172.22.0.2 - - [27/Apr/2020:23:52:15 +0000] "GET / HTTP/1.0" 200 27 "-" "curl/7.64.0" "-"
+app_1    | 172.22.0.1 - cache_status:"MISS" - - [27/Apr/2020:23:52:15 +0000] "GET / HTTP/1.1" 200 27 "-" "curl/7.64.0" "-"
+app_1    | 172.22.0.1 - cache_status:"HIT" - - [27/Apr/2020:23:52:25 +0000] "GET / HTTP/1.1" 200 27 "-" "curl/7.64.0" "-"
+```
+
 ### Throttled configuration
+
+```nginx
+limit_req_zone $binary_remote_addr zone=mylimit:10m rate=10r/s;
+
+server {
+    location /login/ {
+        limit_req zone=mylimit;
+        proxy_pass http://my_upstream;
+    }
+}
+```
+
+```nginx
+location /login/ {
+    limit_req zone=mylimit burst=20;
+    proxy_pass http://my_upstream;
+}
+```
+
+The **burst** parameter defines how many requests a client can make in excess of the rate specified by the zone (with our sample mylimit zone, the rate limit is 10 requests per second, or 1 every 100 milliseconds). 
+
+### Throttled configuration - DEMO
+
+```sh
+curl  --resolve app_d.example.com:80:127.0.0.curl: (52) Empty reply from server
+
+curl  -i --resolve app_d.example.com:80:127.0.0.1 http://app_d.example.com/
+HTTP/1.1 200 OK
+Server: nginx/1.17.10
+Date: Tue, 28 Apr 2020 00:09:54 GMT
+Content-Type: application/json
+Content-Length: 27
+Connection: keep-alive
+```
+
+```sh
+app_d_1  | 172.23.0.4 - - [28/Apr/2020:00:09:55 +0000] "GET / HTTP/1.0" 200 27 "-" "curl/7.64.0" "-"
+app_1    | 2020/04/28 00:09:56 [warn] 6#6: *495 limiting requests, excess: 0.220 by zone "app_d_limit", client: 172.23.0.1, server: app_d.example.com, request: "GET / HTTP/1.1", host: "app_d.example.com"
+app_1    | 172.23.0.1 - - [28/Apr/2020:00:09:56 +0000] "GET / HTTP/1.1" 444 0 "-" "curl/7.64.0" "-"
+```
