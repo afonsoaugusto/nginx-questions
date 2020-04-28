@@ -283,6 +283,8 @@ The structure de log is using log_format defined in nginx.conf.
     }
 ```
 
+### The log files (/ var / log / nginx) - server
+
 ```nginx
 # app
 server {
