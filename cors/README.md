@@ -14,22 +14,4 @@ For security reasons, browsers restrict cross-origin HTTP requests initiated fro
 echo "127.0.0.1 app.example.com app-cors.example.com" >> /etc/hosts
 # http://app.example.com
 
-curl 'http://localhost:81/' \
-  -H 'Accept: */*' \
-  -H 'Origin: http://app.example.com' \
-  -H 'Sec-Fetch-Site: cross-site' \
-  -H 'Sec-Fetch-Mode: cors' \
-  -H 'Sec-Fetch-Dest: empty' \
-  -H 'Referer: http://app.example.com/' \
-  --compressed
-
-curl 'http://localhost:82/' \
-  -H 'Accept: */*' \
-  -H 'Origin: http://app.example.com' \
-  -H 'Sec-Fetch-Site: cross-site' \
-  -H 'Sec-Fetch-Mode: cors' \
-  -H 'Sec-Fetch-Dest: empty' \
-  -H 'Referer: http://app.example.com/' \
-  --compressed
-
 ```
