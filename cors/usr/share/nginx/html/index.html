@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Welcome CORS!</title>
+      <style>
+         body {
+         width: 35em;
+         margin: 0 auto;
+         font-family: Tahoma, Verdana, Arial, sans-serif;
+         }
+      </style>
+   </head>
+   <body>
+      <h1>Welcome CORS!</h1>
+      <button onclick="app1()">App1</button>
+      <button onclick="app2()">App2</button>
+      <h2 id="corsChange">CORS change</h2>
+      <script>
+         function httpGet(theUrl){
+             var xmlHttp = new XMLHttpRequest();
+
+               xmlHttp.onreadystatechange = function() {
+                 if (xmlHttp.readyState === 4) {
+                 document.getElementById("corsChange").innerHTML = xmlHttp.responseText;
+                 }
+             }
+
+             xmlHttp.open( "GET", theUrl, true );
+             xmlHttp.responseType = 'text'
+             xmlHttp.send(null);
+
+             console.log(xmlHttp.status)
+             console.log(xmlHttp)
+
+             return xmlHttp.responseText;
+         }
+         
+         function app1() {
+             text = httpGet('http://localhost:81/')
+             console.log(text)
+         }
+         function app2() {
+             text = httpGet('http://localhost:82/')
+             console.log(text)
+         }        
+      </script>
+   </body>
+</html>
